@@ -1,7 +1,7 @@
 spring:
   datasource:
 #    url: jdbc:mysql://localhost:3306/clone_facebook
-    url: jdbc:mysql://viaduct.proxy.rlwy.net:48697/clone_facebook
+    url: jdbc:mysql://viaduct.proxy.rlwy.net:48697/facebook_clone
     username: root
 #    password: nam123456
     password: KpOZlzLhKNdNgAdgMNVBobMJcyEZpjJo
