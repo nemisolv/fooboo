@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*"], //   '/**' means include all subdirectories   '/**/*' means include all files in all subdirectories
+  "exclude": ["node_modules", "build", "dist", "public"]
+}
