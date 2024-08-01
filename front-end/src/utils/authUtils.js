@@ -5,6 +5,10 @@ const refreshToken = 'fb_refresh_token';
 export const objCookies = {
   expires: 30,
   domain: import.meta.env.VITE_COOKIE_DOMAIN,
+  httpOnly: true,
+  secure: true, // set to false for local testing
+  sameSite: "none",
+  dome: import.meta.env.VITE_COOKIE_DOMAIN,
 };
 
 export const saveToken = (access_token, refresh_token) => {
