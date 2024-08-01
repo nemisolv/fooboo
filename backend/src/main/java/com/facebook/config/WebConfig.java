@@ -16,12 +16,17 @@ public class WebConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin(Constants.CLIENT_BASE_URL); // Allow requests from all origins
-        config.addAllowedHeader("*"); // Allow all headers
-        config.addAllowedMethod("*"); // Allow all methods
-        config.setAllowedOriginPatterns(List.of("*"));
-        config.setMaxAge(3600L);
+//        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*"); // Allow requests from this origin
+//        config.
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("OPTIONS");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("PATCH");
+        config.addAllowedMethod("DELETE");
+        config.setMaxAge(3600l);
         source.registerCorsConfiguration("/**", config); // Apply this configuration to all paths
         return new CorsFilter(source);
     }
