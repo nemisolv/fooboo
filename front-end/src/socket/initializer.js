@@ -6,7 +6,8 @@
   import { onNotificationReceived } from './notification';
   export const registerUser = (dataRegister) => {
     console.log('🚀 ~ registerUser ~ dataRegister:', dataRegister);
-    const socket = new SockJS(BASE_URL_BACKEND + '/ws');
+    // not that in production, can't use /ws, must be use /wss
+    const socket = new SockJS(BASE_URL_BACKEND + '/wss');
     stompClient = over(socket);
     stompClient.connect({userId: dataRegister.id }, () => onConnected(dataRegister), onError);
   };
