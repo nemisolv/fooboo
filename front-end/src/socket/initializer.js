@@ -7,7 +7,7 @@
   export const registerUser = (dataRegister) => {
     console.log('🚀 ~ registerUser ~ dataRegister:', dataRegister);
     // not that in production, can't use /ws, must be use /wss
-    const socket = new SockJS(BASE_URL_BACKEND + '/wss');
+    const socket = new SockJS(BASE_URL_BACKEND + '/ws');
     stompClient = over(socket);
     stompClient.connect({userId: dataRegister.id }, () => onConnected(dataRegister), onError);
   };
