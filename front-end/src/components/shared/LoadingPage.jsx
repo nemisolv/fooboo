@@ -1,6 +1,6 @@
 import { RoundedSpinner } from "@/assets/svg";
 
-function Loader() {
+function LoadingPage() {
   return (
     <div role="status" className="flex-center fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4">
       <RoundedSpinner/>
@@ -8,4 +8,4 @@ function Loader() {
     </div>
   );
 }
-export default Loader;
+export default LoadingPage;

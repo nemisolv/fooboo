@@ -53,10 +53,8 @@ const postSlice = createSlice({
 
     // handle reaction
     reactOnPost: (state) => {
-      state.loading = true;
     },
     reactOnPostSuccess: (state, action) => {
-      state.loading = false;
       const {id, postId, type, user} = action.payload;
       // const {postId,reactionType, userId, isReacted, id} = action.payload;
       const post = state.posts.find((post) => post.id === postId);
@@ -82,13 +80,10 @@ const postSlice = createSlice({
       }
     },
     reactOnPostFailure: (state) => {
-      state.loading = false;
     },
     unReactOnPost: (state) => {
-      state.loading = true;
     },
     unReactOnPostSuccess: (state, action) => {
-      state.loading = false;
       const {postId, userId} = action.payload;
       const post = state.posts.find((post) => post.id === postId);
       const reaction = post.reactions?.find((reaction) => reaction.user.id === userId);
@@ -98,7 +93,6 @@ const postSlice = createSlice({
       }
     },
     unReactOnPostFailure: (state) => {
-      state.loading = false;
     },
 
     adjustCommentCountByPost: (state, action) => {
@@ -110,7 +104,7 @@ const postSlice = createSlice({
       }else if(type === 'decrement') {
         post.commentsCount = post.commentsCount -1;
       }
-    }
+    },
 
 
   },

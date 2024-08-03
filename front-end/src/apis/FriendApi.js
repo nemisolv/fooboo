@@ -13,6 +13,7 @@ export default class FriendApi {
         return await privateRequest.post('/friends/add-friend',  receiverId );
     }
     static async acceptFriendRequest(senderId) {
+        console.log('senderId::' , senderId)
         return await privateRequest.post('/friends/accept-friend',  senderId );
     }
     static async declineAddFriendReceived(senderId) {
@@ -24,5 +25,9 @@ export default class FriendApi {
     }
     static async removeSentFriendRequest(receiverId) {
         return await privateRequest.delete(`/friends/sent-requests/${receiverId}` );
+    }
+
+    static async getSuggestedFriends() {
+        return await privateRequest.get('/friends/suggested');
     }
 }

@@ -2,8 +2,6 @@ import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
 import { formatRelativeTime } from '@/utils/dateFormat';
-import { IoIosMore } from 'react-icons/io';
-import { Button } from '@/components/ui/button';
 import NotificationAction from './NotificationAction';
 
 export default function NotificationItem({ notification }) {
@@ -11,7 +9,7 @@ export default function NotificationItem({ notification }) {
 
   return (
     <div className="bg-white hover:bg-gray-200 rounded-md p-3 relative group">
-      <div className="flex gap-2 items-center justify-between">
+      <div className="flex gap-2 items-center ">
         <div className="relative">
           <div className="w-12 h-12">
             <img
@@ -34,7 +32,7 @@ export default function NotificationItem({ notification }) {
           <div >
             <Link
               to={link}
-              className={clsx('text-sm flex-1 line-clamp-2', seen ? 'text-gray-500' : 'text-black font-medium')}
+              className={clsx('text-sm flex-1 ! line-clamp-2', seen ? 'text-gray-500' : 'text-black font-medium')}
             >
               {parse(content)}
             </Link>

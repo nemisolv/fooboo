@@ -26,24 +26,27 @@ export default function RenderHoverCard({ list, count, type }) {
     <HoverCard >
       <HoverCardTrigger className="">
         <Button variant="link flex items-center ">
-          {type ==='reaction' && uniqueReactions.map((reaction, index) => (
+          {type ==='reaction' && uniqueReactions.map((reaction, index) => {
+            const reactionType = reaction.type?.toLowerCase();
+            return (
             <span key={index} className="w-[18px] cursor-pointer flex items-center gap-1">
-              {reaction.type === 'like' && (
+              {reactionType === 'like' && (
                 <img src="/Post/reacts/like.png" alt="like" className="w-5 h-5 object-contain" />
               )}
-              {reaction.type === 'love' && (
+              {reactionType === 'love' && (
                 <img src="/Post/reacts/love.png" alt="love" className="w-5 h-5 object-contain" />
               )}
-              {reaction.type === 'haha' && (
+              {reactionType === 'haha' && (
                 <img src="/Post/reacts/haha.png" alt="haha" className="w-5 h-5 object-contain" />
               )}
-              {reaction.type === 'wow' && <WowEmotion />}
-              {reaction.type === 'sad' && <SadEmemotion />}
-              {reaction.type === 'angry' && (
+              {reactionType === 'wow' && <WowEmotion />}
+              {reactionType === 'sad' && <SadEmemotion />}
+              {reactionType === 'angry' && (
                 <img src="/Post/reacts/angry.png" alt="angry" className="w-5 h-5 object-contain" />
               )}
             </span>
-          ))}
+          )
+          })}
 
           <span className="text-sm hover:underline text-slate-500 cursor-pointer">
             {count} {`${type}${count >1 ?'s':''}`}

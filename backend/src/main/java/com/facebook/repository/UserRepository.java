@@ -15,4 +15,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE (u.firstName LIKE %?1%  OR u.lastName LIKE %?1% OR u.accountName LIKE %?1%) AND u.verified = true AND u.active = true")
     Page<User> searchUserByUser(String keyword, Pageable pageable);
+
+    // list all user valid
+
+    @Query("SELECT u FROM User u WHERE u.verified = true AND u.active = true")
+    List<User> findAllValidUser();
+
+    // find friends ids of user
 }

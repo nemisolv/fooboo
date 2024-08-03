@@ -16,8 +16,8 @@ public class WebConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*"); // Allow requests from this origin
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin(Constants.CLIENT_BASE_URL); // Allow requests from this origin
 //        config.
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");

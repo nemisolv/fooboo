@@ -3,12 +3,16 @@ package com.facebook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 import java.util.Set;
 
 @SpringBootTest
 class FacebookApplicationTests {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Test
@@ -31,5 +35,12 @@ class FacebookApplicationTests {
 //   public void testGetAllPostsAndUserOfEachPost() {
 //       Query query = new Query(Criteria.where("user").is)
 //   }
+
+    @Test
+    public void testGeneratePassword() {
+        String password = "password";
+        String encodedPassword = passwordEncoder.encode(password);
+        System.out.println("encodedPassword: " + encodedPassword);
+    }
 
 }

@@ -8,6 +8,7 @@ const friendSlice = createSlice({
         // define state friend who are online
         friendsOnline: [],
         sentRequests: [],
+        suggestedFriends: [],
         searchResults: [],
         loading: false,
 
@@ -42,6 +43,16 @@ const friendSlice = createSlice({
             state.loading = false;
         },
         fetchSentRequestsFailure: state => {
+            state.loading = false;
+        },
+        fetchSuggestedFriends: state => {
+            state.loading = true;
+        },
+        fetchSuggestedFriendsSuccess: (state, {payload}) => { 
+            state.suggestedFriends = payload;
+            state.loading = false;
+        },
+        fetchSuggestedFriendsFailure: state => {
             state.loading = false;
         },
         addFriendRequest: (state) => {
@@ -140,7 +151,8 @@ export const {
     acceptFriendRequestFailure,
     updateFriendOnline,
     removeFriendOnline, removeSentFriendRequest, removeSentFriendRequestSuccess, removeSentFriendRequestFailure,
-    declineAddFriendReceived, declineAddFriendReceivedSuccess, declineAddFriendReceivedFailure
+    declineAddFriendReceived, declineAddFriendReceivedSuccess, declineAddFriendReceivedFailure,
+    fetchSuggestedFriends, fetchSuggestedFriendsSuccess, fetchSuggestedFriendsFailure
 } = friendSlice.actions;
 
 export default friendSlice.reducer;

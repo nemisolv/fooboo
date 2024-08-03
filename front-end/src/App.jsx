@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import Loader from '@/components/shared/Loader';
+import Loader from '@/components/shared/LoadingPage';
 import ScrollToTop from '@/components/ScrollToTop';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -7,7 +7,6 @@ import 'tippy.js/dist/tippy.css'; // optional
 
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-
 const PreLayout = lazy(() => import('@/layouts/PreLayouts'));
 const MainLayout = lazy(() => import('@/layouts/MainLayout'));
 const HeaderSidebarLayout = lazy(() => import('@/layouts/HeaderSidebarLayout'));
@@ -23,16 +22,14 @@ const MailTypeCode = lazy(() => import('@/pages/Mail/MailTypeCode'));
 const ConfirmEmail = lazy(() => import('@/pages/Mail/ConfirmMail'));
 const Friend = lazy(() => import('@/pages/Friend'));
 const Profile = lazy(() => import('@/pages/Profile'));
-const Post = lazy(() => import('@/pages/Post'));
 const SearchResult = lazy(() => import('@/pages/SearchResult'));
-
-
+const Notification = lazy(() => import('@/pages/Notification'));
+const PostDetail = lazy(() => import('@/pages/PostDetail'));
 
 // test
 const MySkeleton = lazy(() => import('@/components/shared/CustomSkeleton/PostItemSkeleton'));
 
 function App() {
-
   return (
     <Router>
       <Suspense fallback={<Loader />}>
@@ -52,20 +49,20 @@ function App() {
 
             {/* only header layout */}
             <Route path="/" element={<OnlyHeaderLayout />}>
-            <Route path="/profile/:id" element={<Profile />} />
-            <Route path="/search/top" element={<SearchResult />} />
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/search/top" element={<SearchResult />} />
+              <Route path="/notifications" element={<Notification />} />
             </Route>
 
             {/*  main layout */}
             <Route path="/" element={<MainLayout />}>
               <Route index element={<Home />} />
-              <Route path="/post/:id" element={<Post />} />
+              <Route path="/posts/:id" element={<PostDetail />} />
             </Route>
 
             {/* flexing sidebar with header */}
             <Route path="/" element={<HeaderSidebarLayout />}>
               <Route path="/friends" element={<Friend />} />
-              
             </Route>
 
             {/* test */}

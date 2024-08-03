@@ -1,7 +1,7 @@
 import PostApi from '@/apis/postApi';
 import { fetchPostsFailure, fetchPostsSuccess, reactOnPostFailure, reactOnPostSuccess, unReactOnPostFailure, unReactOnPostSuccess } from '@/stores/slices/postSlice';
 import { call, put } from 'redux-saga/effects';
-import { getUserProfilePosts, getUserProfilePostsFailure, getUserProfilePostsSuccess } from '../slices/userSlice';
+import { getUserProfilePostsFailure, getUserProfilePostsSuccess } from '../slices/userSlice';
 
 function* handleFetchPosts() {
   try {
@@ -41,5 +41,6 @@ export function* handleGetPostsByUserId({payload}) {
     yield put(getUserProfilePostsFailure());
   }
 }
+
 
 export { handleFetchPosts, handleReactionOnPost};

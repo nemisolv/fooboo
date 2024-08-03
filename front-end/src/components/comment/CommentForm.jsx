@@ -9,6 +9,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 
 import { IoMdSend } from 'react-icons/io';
 import { addComment, updateComment } from '@/stores/slices/commentSlice.js';
+import { useNavigate } from 'react-router-dom';
 
 function CommentForm({ postId, id, parentId, initialText = '',isUpdateComment=false, setIsUpdating, setIsReplying, isReplying }) {
   const { currentUser } = useSelector((state) => state.auth);
@@ -18,6 +19,7 @@ function CommentForm({ postId, id, parentId, initialText = '',isUpdateComment=fa
   const dispatch = useDispatch();
   const [text, setText] = useState(initialText);
   const textRef = useRef(null);
+  const navigate = useNavigate();
   // const postTextRef = useRef(null);
 
   // when metadata changes , clear the text and focus on the text area
@@ -35,6 +37,11 @@ function CommentForm({ postId, id, parentId, initialText = '',isUpdateComment=fa
   };
 
   function handleAddComment() {
+    if(!text || text.trim() === '') return;
+    if(!currentUser) {
+      navigate('/auth/login');
+      return;
+    }
     const data = {
       text,
        postId,

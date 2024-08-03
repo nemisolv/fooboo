@@ -2,7 +2,7 @@ package com.facebook.entity.type;
 
 public enum PostType {
 
-    POST_NORMAL("normal"), POST_PROFILE("profile");
+    POST_NORMAL("normal"), POST_PROFILE("profile"), POST_SHARED("shared");
     private String value;
 
     PostType(String value) {

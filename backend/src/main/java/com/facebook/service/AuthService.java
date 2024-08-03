@@ -27,4 +27,6 @@ public interface AuthService {
     void recoverPassword(String email, String code, String password) throws BadRequestException, ResourceNotFoundException;
 
     void changePassword(String username, String oldPassword, String newPassword) throws ResourceNotFoundException, BadRequestException;
+
+    void logout(HttpServletRequest request, HttpServletResponse response) throws ResourceNotFoundException;
 }

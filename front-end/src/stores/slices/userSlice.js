@@ -56,8 +56,6 @@ const userSlice = createSlice( {
             state.userProfile.lastName = payload.lastName;
             state.userProfile.details = {...state.userProfile.details,...payload}
         },
-
-
      
     }
 })
@@ -65,7 +63,7 @@ const userSlice = createSlice( {
 
 export const { getCurrentUserStart, getCurrentUserSuccess, getCurrentUserFailure,
     getOnlineUsersStart, getOnlineUsersSuccess, getOnlineUsersFailure, getUserProfile, getUserProfileSuccess, getUserProfileFailure,
-    getUserProfilePosts, getUserProfilePostsSuccess, getUserProfilePostsFailure,updateUserProfileSuccess
+    getUserProfilePosts, getUserProfilePostsSuccess, getUserProfilePostsFailure,updateUserProfileSuccess,
  } = userSlice.actions
 
 export default userSlice.reducer

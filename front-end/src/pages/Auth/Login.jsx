@@ -70,7 +70,6 @@ function Login() {
                     errors={errors}
                   />
                   <TextInput
-                    onKeyDown={handleKeyDown}
                     passwordField
                     name="password"
                     placeholder="Password"

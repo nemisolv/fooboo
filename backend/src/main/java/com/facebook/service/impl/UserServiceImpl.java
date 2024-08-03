@@ -223,4 +223,24 @@ public class UserServiceImpl implements UserService {
         receiver.removeFriendRequest(sender);
         userRepo.save(receiver);
     }
+
+    @Override
+    public List<UserSummary> getSuggestionFriends(UserPrincipal userPrincipal) {
+        User user = userRepo.findById(userPrincipal.getId()).orElseThrow();
+        List<User> allValidUser = userRepo.findAllValidUser();
+        List<User> friends = user.getFriends().stream().toList();
+        List<UserSummary> suggestedFriends = allValidUser.stream()
+                .filter(u -> !friends.contains(u) && !u.equals(user))
+                .filter(u -> !u.getFriendRequests().contains(user))
+                .filter(u -> !u.getSentFriendRequests().contains(user))
+                .filter(u -> !u.equals(user))
+                .filter(u -> !u.getFriends().contains(user))
+                // include users with mutual friends
+                .filter(u -> u.getFriends().stream().anyMatch(friend -> user.getFriends().contains(friend)))
+
+                .map(u -> modelMapper.map(u, UserSummary.class))
+                .toList();
+
+        return suggestedFriends;
+    }
 }

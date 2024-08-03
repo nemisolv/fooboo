@@ -6,6 +6,7 @@ import com.facebook.entity.Notification;
 import com.facebook.payload.PagedResponse;
 import com.facebook.payload.ResponseMessage;
 import com.facebook.payload.post.PostDTO;
+import com.facebook.payload.post.SharePostRequest;
 import com.facebook.payload.reaction.ReactionPostRequestDTO;
 import com.facebook.payload.reaction.ReactionPostResponseDTO;
 import com.facebook.security.CurrentUser;
@@ -41,14 +42,12 @@ public class PostController {
             @RequestParam(value = "sortField", required = false, defaultValue = "createdAt") String sortField,
             @RequestParam(value = "q", required = false) String keyword) {
 
-        PagedResponse<PostDTO> postResponse;
-//            postResponse = postService.listAllApprovedPost(pageNo, pageSize, sortDir, sortField);
         return ResponseEntity.ok(postService.listAllApprovedPost(pageNo, pageSize, sortDir, sortField));
-//        if (postResponse.getMetadata().isEmpty()) {
-//            return new ResponseEntity<>(
-//                    new ResponseMessage(204, "No post available"), HttpStatus.NO_CONTENT);
-//        }
-//        return ResponseEntity.ok(postResponse);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getPostById(@PathVariable("id") Long postId) {
+        return ResponseEntity.ok(postService.getPostById(postId));
     }
 
     @PostMapping
@@ -65,7 +64,7 @@ public class PostController {
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<?> listCommentsByPostId(@RequestParam(value = "page_no", required = false, defaultValue = "1") int pageNo,
-                                                  @RequestParam(value = "page_size", required = false, defaultValue = "10") int pageSize,
+                                                  @RequestParam(value = "page_size", required = false, defaultValue = "50") int pageSize,
                                                   @RequestParam(value = "sort_dir", required = false, defaultValue = "asc") String sortDir,
                                                   @RequestParam(value = "sortField", required = false, defaultValue = "createdAt") String sortField,
                                                   @PathVariable("id") Long postId) {
@@ -93,6 +92,7 @@ public class PostController {
     ) {
         return ResponseEntity.ok(postService.getPostsByUserId(userId, pageNo, pageSize));
     }
+
 
 
 }

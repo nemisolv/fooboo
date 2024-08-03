@@ -105,7 +105,7 @@ function Comment({ comment }) {
             </div>
 
             <button onClick={() => setIsReplying((prev) => !prev)}>{isReplying ? 'Cancel reply' : 'Reply'}</button>
-            <button onClick={() => setIsUpdating((prev) => !prev)}>{isUpdating ? 'Cancel edit' : 'Edit'}</button>
+            {currentUser?.id === user.id && <button onClick={() => setIsUpdating((prev) => !prev)}>{isUpdating ? 'Cancel edit' : 'Edit'}</button>}
           </div>
           {/*  show comment reply form */}
           {isReplying && (

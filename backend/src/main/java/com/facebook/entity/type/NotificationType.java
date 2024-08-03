@@ -8,5 +8,6 @@ public enum NotificationType {
     LIKE_COMMENT,
     REPLY_COMMENT,
     REACT_COMMENT,
-    NEW_POST
+    NEW_POST,
+    SHARED_POST,
 }

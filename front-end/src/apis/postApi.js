@@ -14,6 +14,9 @@ class PostApi {
       },
     });
   }
+  static async fetchPostById(postId) {
+    return await publicRequest.get(`/posts/${postId}`);
+  }
   static async createPost(data) {
     return await privateRequest.post('/posts', data);
   }
@@ -29,6 +32,7 @@ class PostApi {
   static async fetchPostsByUserId(userId) {
     return await publicRequest.get(`/posts/user/${userId}`);
   }
+
 }
 
 export default PostApi;

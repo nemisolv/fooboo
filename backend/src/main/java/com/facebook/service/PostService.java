@@ -3,6 +3,8 @@ package com.facebook.service;
 import com.facebook.payload.PagedResponse;
 import com.facebook.payload.comment.CommentResponse;
 import com.facebook.payload.post.PostDTO;
+import com.facebook.payload.post.SharePostRequest;
+import com.facebook.security.UserPrincipal;
 
 public interface PostService {
     PagedResponse<PostDTO> listByPage(int page, int size,String sortField,String sortDir, String keyword);
@@ -15,6 +17,9 @@ public interface PostService {
     PagedResponse<CommentResponse> listCommentsByPostId(Long postId,int pageNo, int pageSize, String sortDir, String sortField);
 
     PagedResponse<PostDTO> getPostsByUserId(Long userId, int pageNo, int pageSize);
+
+    PostDTO getPostById(Long postId);
+
 
 
 //    Post createPost(Post post);

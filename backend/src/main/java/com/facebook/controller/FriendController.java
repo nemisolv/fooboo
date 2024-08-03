@@ -74,5 +74,11 @@ public class FriendController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/suggested")
+
+    public ResponseEntity<?> getSuggestionFriends(@CurrentUser UserPrincipal userPrincipal) {
+        return ResponseEntity.ok(userService.getSuggestionFriends(userPrincipal));
+    }
+
 
 }

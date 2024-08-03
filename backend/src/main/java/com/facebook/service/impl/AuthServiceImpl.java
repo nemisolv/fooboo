@@ -3,6 +3,7 @@ package com.facebook.service.impl;
 import com.facebook.Constants;
 import com.facebook.entity.Role;
 import com.facebook.entity.type.MailType;
+import com.facebook.entity.type.UserMessagingStatus;
 import com.facebook.entity.user.Details;
 import com.facebook.entity.type.Gender;
 import com.facebook.entity.user.User;
@@ -20,6 +21,7 @@ import com.facebook.repository.UserRepository;
 import com.facebook.security.CustomUserDetailsService;
 import com.facebook.security.UserPrincipal;
 import com.facebook.service.AuthService;
+import com.facebook.service.UserService;
 import com.facebook.util.Utility;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +30,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -55,7 +58,10 @@ public class AuthServiceImpl implements AuthService {
     private final ModelMapper modelMapper;
     private final ConfirmationEmailRepository confirmationEmailRepo;
     private final MailHelper mailHelper;
+    private final UserService userService;
     private final UserDetailRepository userDetailRepo;
+    private final SimpMessagingTemplate messagingTemplate;
+
 
 
     @Override
@@ -320,6 +326,19 @@ public class AuthServiceImpl implements AuthService {
         }
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepo.save(user);
+    }
+
+    @Override
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws ResourceNotFoundException {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            final String token = authHeader.substring(7);
+            String email = jwtService.extractUsername(token);
+            User user = userRepo.findByEmail(email).orElseThrow();
+
+//
+        }
+
     }
 
 

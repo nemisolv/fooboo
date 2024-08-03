@@ -7,8 +7,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class FacebookApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(FacebookApplication.class, args);
+       var context =  SpringApplication.run(FacebookApplication.class, args);
+        // print active profiles
+        String [] activeProfiles = context.getEnvironment().getActiveProfiles();
+        System.out.println("Application is running in {} " + String.join(",", activeProfiles) + " mode");
     }
 
 }

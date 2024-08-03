@@ -4,7 +4,7 @@ export default function OtherSidebar({  sidebarLinks }) {
   const location = useLocation();
 
     return (
-      <aside className="max-w-[336px] w-full h-full border-l bg-white border-gray-300 shadow-sm p-2  absolute left-0  ">
+      <aside className=" w-[300px] h-full border-l bg-white border-gray-300 shadow-sm p-2  absolute left-0  ">
     <h3 className="font-medium">{sidebarLinks[0].title}</h3>
       {sidebarLinks.slice(1).map((link) => {
         const isActive = link.href === location.pathname

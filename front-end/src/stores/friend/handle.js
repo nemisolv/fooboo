@@ -1,6 +1,6 @@
 import FriendApi from "@/apis/FriendApi";
 import { call, put } from "redux-saga/effects";
-import { acceptFriendRequestFailure, acceptFriendRequestSuccess, addFriendRequestFailure, addFriendRequestSuccess, declineAddFriendReceivedFailure, declineAddFriendReceivedSuccess, fetchFriendRequestsFailure, fetchFriendRequestsSuccess, fetchMyFriendsFailure, fetchMyFriendsSuccess, fetchSentRequestsFailure, fetchSentRequestsSuccess, removeSentFriendRequestFailure, removeSentFriendRequestSuccess } from "../slices/friendSlice";
+import { acceptFriendRequestFailure, acceptFriendRequestSuccess, addFriendRequestFailure, addFriendRequestSuccess, declineAddFriendReceivedFailure, declineAddFriendReceivedSuccess, fetchFriendRequestsFailure, fetchFriendRequestsSuccess, fetchMyFriendsFailure, fetchMyFriendsSuccess, fetchSentRequestsFailure, fetchSentRequestsSuccess, fetchSuggestedFriendsFailure, fetchSuggestedFriendsSuccess, removeSentFriendRequestFailure, removeSentFriendRequestSuccess } from "../slices/friendSlice";
 
 export function* handleFetchMyFriends() {
   try {
@@ -24,7 +24,7 @@ export function* handleFetchFriendRequests() {
 
 export function* handleAddFriendRequest({payload}) {
     try {
-        const response = yield call(FriendApi.addFriendRequest, payload.id);
+     yield call(FriendApi.addFriendRequest, payload.id);
         yield put(addFriendRequestSuccess(payload));
     } catch (error) {
         console.log("🚀 ~ function*addFriendRequest ~ error:", error)
@@ -74,5 +74,15 @@ export function* handleRemoveSentFriendRequest({payload}) {
     } catch (error) {
         console.log("🚀 ~ function*handleRemoveSentFriendRequest ~ error:", error)
         yield put(removeSentFriendRequestFailure());
+    }
+}
+
+export function* handleFetchSuggestedFriends() {
+    try {
+        const data  = yield call(FriendApi.getSuggestedFriends);
+        yield put(fetchSuggestedFriendsSuccess(data));
+    } catch (error) {
+        console.log("🚀 ~ function*handleFetchSuggestedFriends ~ error:", error)
+        yield put(fetchSuggestedFriendsFailure());
     }
 }

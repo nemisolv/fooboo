@@ -5,17 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Header from '@/components/profile/HeaderProfile';
 import ProfileTabs from '@/components/profile/ProfileTabs';
-import Loader from '@/components/shared/Loader';
+import Loader from '@/components/shared/LoadingPage';
+import { fetchFriendRequests } from '@/stores/slices/friendSlice';
 
 export default function Profile() {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
   const { id } = useParams();
 
-  
-
   useEffect(() => {
     dispatch(getUserProfile(id));
+    dispatch(fetchFriendRequests());
   }, [id]);
 
   return (

@@ -3,23 +3,23 @@ import { Link } from 'react-router-dom';
 
 import { PublicScope } from '@/assets/svg/post_scope';
 import Divider from '@/styles/Divider';
-import { BiMessageRounded, BiShare } from 'react-icons/bi';
 import { formatDistanceToNow } from 'date-fns';
 import { Fragment, useRef, useState } from 'react';
-import ModalPost from './ModalPost';
 import Like from './Like';
 import RenderHoverCard from '../shared/Card/RenderHoverCard';
 import { useDispatch, useSelector } from 'react-redux';
 import {  fetchPreviewComments } from '@/stores/slices/commentSlice';
+import PostCommentModal from './PostCommentModal';
+import SharePostModal from './SharePostModal';
 
 function PostItem({ post }) {
   const { id, author, text, createdAt, images, background, commentsCount, sharesCount, reactionsCount, reactions } =
     post;
-  const [showComment, setShowComment] = useState(false);
   const dispatch = useDispatch();
   const postRef = useRef(null);
   const [shortText, setShortText] = useState(text.length > 200 ? text.substring(0, 200) : text);
   const {previewComments} = useSelector(state => state.comment)
+  const [showModal,setShowModal] = useState(false)
   const handleSeeMoreLessClick = () => {
     setShortText(!shortText);
     postRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -92,9 +92,6 @@ function PostItem({ post }) {
                 `}
           >
             {images.map((image, index) => (
-              // <Fragment key={index}>
-              //   <img key={index} src={image} alt="post" className="h-full w-full object-cover max-h-[700px]" />
-              // </Fragment>
               <Fragment key={index}>
                 <img src={image} className="object-cover w-full min-h-[200px] " alt="" />
               </Fragment>
@@ -119,36 +116,28 @@ function PostItem({ post }) {
             <div className="right  text-slate-500 flex items-center gap-4 text-sm">
               <p
                 className="hover:underline cursor-pointer "
-                onClick={() => setShowComment(true)}
+                onClick={() => setShowModal(true)}
                 onMouseOver={e => handleHoverFetchComments(e)}
               >
                 <RenderHoverCard list={previewComments} count={commentsCount} type='comment'/>
               </p>
-              <p className="hover:underline cursor-pointer">{sharesCount} shares</p>
+              <p className="hover:underline cursor-pointer font-medium text-md">{sharesCount} shares</p>
             </div>
           </div>
           <Divider />
           {/* actions */}
           <div className="flex justify-around text-[#65676b] font-medium text-sm my-1 w-full relative">
             <Like post={post} />
-            <div
-              onClick={() => setShowComment(true)}
-              className="text-center flex items-center justify-center gap-x-2 hover:bg-gray-100 cursor-pointer w-full py-2 px-2  rounded-lg "
-            >
-              <BiMessageRounded />
-              <span className="">Comment</span>
-            </div>
-            <div className="text-center flex items-center justify-center gap-x-2 hover:bg-gray-100 cursor-pointer w-full py-2 px-2  rounded-lg ">
-              <BiShare />
-              <span className="">Share</span>
-            </div>
+
+            <PostCommentModal post={post} isOpen={showModal} setIsOpen={setShowModal}/>
+            
+          
+            <SharePostModal post={post} />
           </div>
           <Divider />
         </div>
       </div>
 
-      {/* modal comment */}
-      {showComment && <ModalPost post={post} setShowComment={setShowComment} />}
     </div>
   );
 }

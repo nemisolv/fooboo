@@ -8,7 +8,6 @@ import { getConversations } from '@/stores/slices/conversationSlice';
 
 export default function DropdownConversations() {
   const { conversations } = useSelector((state) => state.conversation);
-  console.log('🚀 ~ DropdownConversations ~ conversations:', conversations);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getConversations());

@@ -2,7 +2,7 @@ import Header from './shared/Header';
 import { Outlet } from 'react-router-dom';
 import LeftSidebar from '../components/shared/sidebar/LeftSidebar';
 import { sidebarLeft } from '@/data/home';
-import { useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import RightSidebar from '@/components/shared/sidebar/RightSidebar';
 import ConversationBox from '@/components/shared/Conversation/ConversationBox';
@@ -15,7 +15,8 @@ function MainLayout() {
 
   useEffect(() => {
       if(currentUser){
-        registerUser(currentUser)
+        registerUser(currentUser);
+              
       }
   },[currentUser?.id])
 

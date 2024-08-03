@@ -53,7 +53,8 @@ public class Utility {
                 NotificationType.LIKE_COMMENT, "/posts/%s",
                 NotificationType.REPLY_COMMENT, "/posts/%s",
                 NotificationType.REACT_COMMENT, "/posts/%s",
-                NotificationType.NEW_POST, "/posts/%s"
+                NotificationType.NEW_POST, "/posts/%s",
+                NotificationType.SHARED_POST, "/posts/%s"
         );
 
         String pattern = urlPatterns.get(type);
@@ -91,6 +92,9 @@ public class Utility {
             }
             case REACT_COMMENT -> {
                 return ownerName + " has reacted to your comment!";
+            }
+            case SHARED_POST -> {
+                return ownerName + " has shared new post!";
             }
             default -> {
                 return "You have a new notification!";

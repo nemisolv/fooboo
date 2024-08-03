@@ -9,10 +9,13 @@ import com.facebook.entity.type.PostStatus;
 import com.facebook.entity.type.PostType;
 import com.facebook.entity.Reaction;
 import com.facebook.entity.user.User;
+import com.facebook.exception.BadRequestException;
 import com.facebook.helper.NotificationHelper;
 import com.facebook.payload.PagedResponse;
 import com.facebook.payload.comment.CommentResponse;
 import com.facebook.payload.post.PostDTO;
+import com.facebook.payload.post.SharePostRequest;
+import com.facebook.payload.post.VeryShortInfoPost;
 import com.facebook.payload.reaction.ReactionPostResponseDTO;
 import com.facebook.payload.user.VeryShortUserInfo;
 import com.facebook.repository.CommentRepository;
@@ -90,12 +93,22 @@ public class PostServiceImpl implements PostService {
         return getPostResponse(pageNo, pageSize, page);
     }
 
+    @Override
+    public PostDTO getPostById(Long postId) {
+        Post post = postRepo.findById(postId).orElseThrow();
+        return modelMapper.map(post, PostDTO.class);
+    }
+
+
+
 
     public  PagedResponse<PostDTO>  getPostResponse(int pageNo, int pageSize, Page<Post> page) {
         List<PostDTO> content = page.getContent().stream()
                 .map(post ->  {
                    PostDTO postRes =  modelMapper.map(post, PostDTO.class);
-                   List<ReactionPostResponseDTO> reactionsDTO =new ArrayList<>();
+
+
+                    List<ReactionPostResponseDTO> reactionsDTO =new ArrayList<>();
 
                    List<Reaction> reactions = post.getReactions();
 

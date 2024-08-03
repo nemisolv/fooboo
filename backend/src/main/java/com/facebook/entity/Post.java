@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "posts")
@@ -29,6 +30,7 @@ public class Post extends DateAuditEntity {
     @Column(columnDefinition = "TEXT")
     private String text;
 
+
     @ElementCollection
     private List<String> images;
     @Column(name = "reactions_count")
@@ -37,6 +39,8 @@ public class Post extends DateAuditEntity {
     private int commentsCount = 0;
     @Column(name = "shares_count")
     private int sharesCount = 0;
+
+
 
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -51,6 +55,10 @@ public class Post extends DateAuditEntity {
     private boolean enabled = true;
     private boolean deleted = false;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_post_id")
+    private Post parentPost;
+
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
 
@@ -58,6 +66,7 @@ public class Post extends DateAuditEntity {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Reaction> reactions;
+
 
     public void incrementReactionsCount() {
         this.reactionsCount++;
@@ -74,6 +83,9 @@ public class Post extends DateAuditEntity {
     public void decrementCommentsCount() {
         this.commentsCount--;
     }
+
+
+
 
 
 

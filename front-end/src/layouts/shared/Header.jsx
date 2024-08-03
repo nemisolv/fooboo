@@ -15,13 +15,20 @@ import {
 
 import DropdownConversations from '@/components/shared/Conversation/DropdownConversations';
 import DropdownNotification from '@/components/shared/Notification/DropdownNotificaiton';
-import { logOut } from '@/utils/authUtils';
 import { Button } from '@/components/ui/button';
+import { logOut } from '@/utils/authUtils';
+import { disconnectUser } from '@/socket/common';
 
 function Header() {
   const { currentUser } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const color = '#666';
+
+  const handleLogout = () => {
+    disconnectUser(currentUser?.id);
+    logOut(navigate);
+
+  }
   return (
     <header className="fixed top-0 left-0  right-0 z-50   px-4  flex items-center   h-[56px] shadow bg-white ">
       <div className="flex items-center gap-2 w-[320px] ">
@@ -67,7 +74,7 @@ function Header() {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => navigate(`/profile/${currentUser?.id}`)}>Profile</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => logOut(navigate)}>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )}

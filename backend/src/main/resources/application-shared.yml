@@ -1,0 +1,20 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 5MB
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+app:
+  api_prefix: /v1/api
+  security:
+    jwt:
+      secret-key: dnVob2FpbmFtZHo3NjIzaWxoYWpzbGlmYXNsZmphc2Zqc2phZmxhc2ZzYWQ=
+      expiration: 72000000  # 20 hours
+      refresh-token:
+        expiration: 604800000 # 7 days
+  auth:
+    tokenSecret: 04ca023b39512e46d0c2cf4b48d5aac61d34302994c87ed4eff225dcf3b0a218739f3897051a057f9b846a69ea2927a587044164b7bae5e1306219d50b588cb1
+    tokenExpirationMsec: 864000000

@@ -9,14 +9,13 @@ import {  useMemo } from 'react';
 import { Button } from '../ui/button';
 import { IoMdCheckmark } from 'react-icons/io';
 export default function FriendAction({id, data}) {
+  console.log("🚀 ~ FriendAction ~ id:", id)
   const {currentUser} = useSelector((state) => state.auth);
     id = Number(id)
     const { myFriends, sentRequests, friendRequests } = useSelector((state) => state.friend);
-    console.log("🚀 ~ FriendAction ~ sentRequests:", sentRequests)
     const isAdded = useMemo(() => myFriends.some((friend) => friend.id === id), [myFriends, id]) ;
     const isSent = useMemo(() => sentRequests.some((friend) => friend.id === id), [sentRequests, id]);
     const isRequested = useMemo(() => friendRequests.some((friend) => friend.id === id), [friendRequests, id]);
-    console.log('isAdded', isAdded, 'isSent', isSent, 'isRequested', isRequested);
     const dispatch = useDispatch();
 
     const handleAddFriend = (e) => {
@@ -26,7 +25,7 @@ export default function FriendAction({id, data}) {
     
       const handleAccept = (e) => {
         e.stopPropagation();
-        dispatch(acceptFriendRequest());
+        dispatch(acceptFriendRequest(id));
       };
       const handleDecline = (e) => {
         e.stopPropagation();
@@ -41,26 +40,26 @@ export default function FriendAction({id, data}) {
 
     return  <div>
     {!isAdded && !isSent && !isRequested && (
-      <Button className=" bg-[#ebf5ff] text-primary hover:bg-[#ebf5ff] " onClick={(e) => handleAddFriend(e)}>
+      <Button className=" bg-[#ebf5ff] text-primary hover:bg-[#ebf5ff] w-full "  onClick={(e) => handleAddFriend(e)}>
         Add friend
       </Button>
     )}
     {isSent && (
       <Button
-        className=" bg-[#ebf5ff] text-primary hover:bg-[#ebf5ff] "
+        className=" bg-[#ebf5ff] text-primary hover:bg-[#ebf5ff] w-full "
         onClick={(e) => handleRemoveSentRequest(e)}
       >
         Remove sent request
       </Button>
     )}
     {isRequested && (
-      <div className="flex items-center gap-3">
-        <Button className=" text-white " onClick={(e) => handleAccept(e)}>
+      <div className="flex items-center gap-3 flex-wrap justify-center">
+        <Button className=" text-white w-full" onClick={(e) => handleAccept(e)}>
           <IoMdCheckmark />
           Accept request
         </Button>
 
-        <Button variant="secondary" onClick={(e) => handleDecline(e)}>
+        <Button variant="secondary" className='w-full' onClick={(e) => handleDecline(e)}>
           Decline
         </Button>
       </div>

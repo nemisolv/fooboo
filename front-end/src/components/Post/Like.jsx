@@ -5,6 +5,7 @@ import { SlLike } from 'react-icons/sl';
 import { useDispatch, useSelector } from 'react-redux';
 import emotionToPath from '@/utils/emotionToPath'
 import { reactOnPost, unReactOnPost } from '@/stores/slices/postSlice';
+import { useNavigate } from 'react-router-dom';
 function Like({ post}) {
     const {currentUser} = useSelector(state => state.auth)
     const [visibleReactions, setVisibleReactions] = useState(false);
@@ -15,8 +16,13 @@ function Like({ post}) {
     const lastClickTimeRef = useRef(0);
     const mouseOverTimeoutRef = useRef(null);
     const mouseLeaveTimeoutRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleReactPost = () => {
+      if (!currentUser) {
+        navigate('/auth/login');
+        return;
+      }
       setVisibleReactions(false)
         // if user click on the reaction button before 1s time, it will not show the reaction, prevent onMouseOver and onMouseLeave
         const currentTime = Date.now();

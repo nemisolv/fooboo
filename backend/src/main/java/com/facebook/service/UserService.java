@@ -43,4 +43,6 @@ public interface UserService {
     void removeSentFriendRequests(UserPrincipal userPrincipal, Long id) throws ResourceNotFoundException;
 
     void declineFriendRequest(UserPrincipal userPrincipal, Long senderId) throws ResourceNotFoundException;
+
+    List<UserSummary> getSuggestionFriends(UserPrincipal userPrincipal);
 }

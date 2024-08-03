@@ -3,15 +3,15 @@ package com.facebook.payload.post;
 import com.facebook.payload.DateAuditPayload;
 import com.facebook.payload.reaction.ReactionPostResponseDTO;
 import com.facebook.payload.user.UserSummary;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter @Setter
+@Getter
+@Setter
 public class PostDTO extends DateAuditPayload {
     private Long id;
     private String type;
@@ -29,11 +29,10 @@ public class PostDTO extends DateAuditPayload {
     private int reactionsCount;
     private int commentsCount;
     private int sharesCount;
-//    private List<Comment> comments;
 
 
 
-    // getters and setters
+
 
 
 }

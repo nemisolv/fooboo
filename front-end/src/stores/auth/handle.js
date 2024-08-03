@@ -36,7 +36,6 @@ function* handleVerifyEmailConfirmation({ payload }) {
   const { navigate, data } = payload;
   try {
     const res = yield call(AuthApi.verifyEmail, data);
-    console.log('🚀 ~ function*handleSendEmailConfirmation ~ res:', res);
     const { token, refreshToken, userData } = res.data;
     if (token && refreshToken && userData) {
       saveToken(token, refreshToken);

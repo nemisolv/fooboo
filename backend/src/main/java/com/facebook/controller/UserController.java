@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,7 @@ public class UserController {
 
 
 
+
     @GetMapping("/me")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<UserSummary> getCurrentUser(@CurrentUser UserPrincipal user) {
@@ -46,16 +48,16 @@ public class UserController {
 
     // conversation
 
-//    @Patch
-//
-//    @GetMapping("/{userId}")
-//    public ResponseEntity<UserConversation> getUserById(@PathVariable Long userId) throws ResourceNotFoundException {
-//        return ResponseEntity.ok(userService.getUserConversationById(userId));
-//    }
 
     @PatchMapping("/update_info")
     public ResponseEntity<?> updateUserInfo(@RequestBody UpdateInfo updateInfo, @CurrentUser  UserPrincipal userPrincipal) throws ResourceNotFoundException {
         userService.updateUserInfo(updateInfo, userPrincipal);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) throws ResourceNotFoundException {
+        authService.logout(request, response);
         return ResponseEntity.noContent().build();
     }
 

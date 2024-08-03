@@ -70,19 +70,22 @@ public class ChatMessageController {
     }
 
     @MessageMapping("/disconnect")
-    public void disconnect(@Payload String userId) {
-//        users.remove(userId);
-//        messagingTemplate.convertAndSend("/topic/getUsers", users);
+    public void disconnect(@Payload String userId, SimpMessageHeaderAccessor headerAccessor) {
+        System.out.println("Disconnecting user: " + userId);
+        try {
+            disconnectUser(headerAccessor);
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) throws ResourceNotFoundException {
         SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.wrap(event.getMessage());
-//        Long userId = (Long) headerAccessor.getSessionAttributes().get("userId");
-//        if (userId != null) {
-//            // Update user's status to offline
-//            userService.toggleUserMessagingStatus(userId, UserMessagingStatus.OFFLINE);
-//        }
+        disconnectUser(headerAccessor);
+    }
+
+    private void disconnectUser(SimpMessageHeaderAccessor headerAccessor) throws ResourceNotFoundException {
         String socketId = (String) headerAccessor.getSessionAttributes().get("socketId");
         if (socketId != null) {
             // Remove user from users map
@@ -99,8 +102,6 @@ public class ChatMessageController {
 
         }
     }
-
-
 
 
 //    @GetMapping("/{roo")
